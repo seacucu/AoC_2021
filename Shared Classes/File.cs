@@ -1,24 +1,27 @@
 ﻿using System;
 using System.IO;
 using static System.Console;
+using System.Collections.Generic;
 
 namespace AdventOfCode
 {   
     public class File
     {
         /*---- 屬性&支援欄位 ----*/
-        private string testFilePath;
-        private string exampleFilePath;
+        protected string TestFilePath { get; set; }
+        protected string ExampleFilePath { get;  set; }
         public enum FileType { TEST, EXAMPLE }
-        public string[] Content { get; private set; }
+        public string[] Content { get; protected set; }
 
         /*------- 建構式 -------*/
+        /// <summary></summary>
+        /// <param name="folderName">要讀取的檔案所在的資料夾名稱</param>
         public File(string folderName)
         {            
-            testFilePath = 
+            TestFilePath = 
                 $"C:\\Users\\Chloe\\OneDrive\\C#學習專案儲存庫\\" +
                 $"Advent of Code\\AOC_2021\\{folderName}\\_test.txt";
-            exampleFilePath =
+            ExampleFilePath =
                 $"C:\\Users\\Chloe\\OneDrive\\C#學習專案儲存庫\\" +
                 $"Advent of Code\\AOC_2021\\{folderName}\\_example.txt";
         }
@@ -28,10 +31,10 @@ namespace AdventOfCode
         /// <param name="fileType">讀取EXAMPLE範例或TEST測試。</param>
         /// <param name="showContent">是否印出檔案內容。</param>
         /// <returns>檔案內容陣列。</returns>
-        public Array ReadFile(FileType fileType, bool showContent = false)
+        public virtual Array ReadFile(FileType fileType, bool showContent = false)
         {
             Content = System.IO.File.ReadAllLines((fileType == FileType.TEST)?
-                testFilePath : exampleFilePath);
+                TestFilePath : ExampleFilePath);
 
             // 測試輸入是否為 int
             if (Int32.TryParse(Content[0], out int a))
@@ -52,8 +55,7 @@ namespace AdventOfCode
                 return Content;
             }
         }
-
-        private void DisplayContent(Array content)
+        static public void DisplayContent(Array content)
         {
             foreach (var line in content) WriteLine(line);
         }

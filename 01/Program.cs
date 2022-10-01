@@ -1,5 +1,4 @@
-﻿using static AdventOfCode.File;
-using static System.Console;
+﻿using static System.Console;
 
 namespace AdventOfCode
 {
@@ -8,7 +7,7 @@ namespace AdventOfCode
         private static void Main(string[] args)
         {
             File file01 = new File("01");
-            int[] numbers = (int[])file01.ReadFile(FileType.TEST, false);
+            int[] numbers = (int[])file01.ReadFile(File.FileType.TEST, false);
 
             int part1Ans = FindLarger(numbers);
             WriteLine("Part 1 answer: " + part1Ans);
